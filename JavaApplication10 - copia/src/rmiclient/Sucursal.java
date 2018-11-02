@@ -95,10 +95,17 @@ public class Sucursal {
 
                     case 1: {
                         String txt = JOptionPane.showInputDialog("Binvenido");
-                        if( ad.añadirUsuario("12345", "pepito", "perez", "puser", "145547", "7545", "juan@gmail.com")){
-                             JOptionPane.showMessageDialog(null, "OK");
+                        
+                        if( ad.crearCuenta("1", "4547545", "Ahorros", "5.000.000")){
+                             JOptionPane.showMessageDialog(null, "OK CUENTA");
                         }else{
-                            JOptionPane.showMessageDialog(null, "False");
+                            JOptionPane.showMessageDialog(null, "False CUENTA");
+                        }
+                        
+                        if( ad.añadirUsuario("12345", "pepito", "perez", "puser", "145547", "7545", "juan@gmail.com")){
+                             JOptionPane.showMessageDialog(null, "OK USUARIO");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "FALSE USUARIO");
                         }
                        
                         break;

@@ -22,19 +22,20 @@ public class Conexion {
       
      private static Connection Conexion;
  
-    public void MySQLConnection() {
+    public Connection MySQLConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String user = "root";
             String pass = "";
             String db_name="RMIProject";
-            Conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:8080/"+ db_name, user, pass);
+            Conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/"+ db_name, user, pass);
             System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return Conexion;
     }
 
 //    public static void connect() {

@@ -5,6 +5,12 @@
  */
 package rmiclient;
 
+import Conexion.Conexion;
+import com.mysql.jdbc.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lurreaf
@@ -16,6 +22,7 @@ public class Cuenta {
     private String tipo;
     private String saldo_total;
     private Transaccion lista_transacciones;
+    private Connection conectar;
 
     public Cuenta() {
     }
@@ -28,6 +35,23 @@ public class Cuenta {
         this.saldo_total = saldo_total;
         this.lista_transacciones = lista_transacciones;
     }
+
+    public Cuenta(String titular, String numero_cuenta, String tipo, String saldo_total, Transaccion lista_transacciones) {
+        this.titular = titular;
+        this.numero_cuenta = numero_cuenta;
+        this.tipo = tipo;
+        this.saldo_total = saldo_total;
+        this.lista_transacciones = lista_transacciones;
+    }
+
+    public Cuenta(String titular, String numero_cuenta, String tipo, String saldo_total) {
+        this.titular = titular;
+        this.numero_cuenta = numero_cuenta;
+        this.tipo = tipo;
+        this.saldo_total = saldo_total;
+    }
+    
+    
     
     
 
@@ -77,6 +101,26 @@ public class Cuenta {
 
     public void setLista_transacciones(Transaccion lista_transacciones) {
         this.lista_transacciones = lista_transacciones;
+    }
+    
+    public boolean crearCuenta(){
+        try {
+            String Query = "INSERT INTO Cuenta (titular,numero_cuenta,tipo,saldo_total)VALUES("
+                    + "\"" + titular + "\", "
+                    + "\"" + numero_cuenta + "\", "
+                    + "\"" + tipo + "\", "
+                    + "\"" + saldo_total + "\")";
+            System.out.println(Query);
+            Conexion new_conexion = new Conexion ();
+            conectar = new_conexion.MySQLConnection();
+            Statement st = conectar.createStatement();
+            st.executeUpdate(Query);
+            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
+             return false;
+        }
     }
     
     
