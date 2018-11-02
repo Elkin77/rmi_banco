@@ -1,0 +1,76 @@
+create database RMIProject;
+
+
+use RMIProject;
+CREATE TABLE Usuario(
+id int AUTO_INCREMENT ,
+cedula varchar(30),
+nombre varchar(30),
+apellido varchar(30), 
+usuario varchar(30),
+Pass varchar(30),
+telefono varchar(30),
+email varchar(30),
+PRIMARY KEY (id));
+
+CREATE TABLE Transaccion(
+id_transaccion int AUTO_INCREMENT ,
+nombre varchar(30),
+fecha varchar(30),
+valor varchar(30), 
+tipo varchar(30),
+descripcion varchar(30),
+lista_cuentas int,
+PRIMARY KEY (id_transaccion));
+
+CREATE TABLE Cuenta(
+id_cuenta int AUTO_INCREMENT ,
+titular varchar(30),
+numero_cuenta varchar(30),
+tipo varchar(30), 
+saldo_total varchar(30),
+lista_transacciones int,
+PRIMARY KEY (id_cuenta),
+FOREIGN KEY (lista_transacciones) REFERENCES Transaccion
+(id_transaccion));
+
+CREATE TABLE Cliente(
+id_cliente int AUTO_INCREMENT ,
+cedula varchar(30),
+nombre varchar(30),
+apellido varchar(30), 
+usuario varchar(30),
+Pass varchar(30),
+telefono varchar(30),
+email varchar(30),
+lista_cuentas int,
+PRIMARY KEY (id_cliente),
+FOREIGN KEY (lista_cuentas) REFERENCES Cuenta(id_cuenta));
+
+
+CREATE TABLE Permisos(
+id_permiso int AUTO_INCREMENT ,
+nombre varchar(30),
+acceso varchar(30),
+descripcion varchar(30), 
+PRIMARY KEY (id_permiso));
+
+CREATE TABLE Banco(
+id_banco int AUTO_INCREMENT ,
+nombre varchar(30),
+ubicacion varchar(30), 
+lista_sucursales int ,
+PRIMARY KEY (id_banco),
+FOREIGN KEY (lista_sucursales) REFERENCES Sucursal(id_sucursal));
+
+
+CREATE TABLE Sucursal(
+id_sucursal int AUTO_INCREMENT ,
+nombre varchar(30),
+lista_usuarios int, 
+lista_permisos int, 
+lista_transaccione int, 
+PRIMARY KEY (id_sucursal),
+FOREIGN KEY (lista_usuarios) REFERENCES Usuario(id),
+FOREIGN KEY (lista_permisos) REFERENCES Permisos(id_permiso),
+FOREIGN KEY (lista_transaccione) REFERENCES Transaccion(id_transaccion));
