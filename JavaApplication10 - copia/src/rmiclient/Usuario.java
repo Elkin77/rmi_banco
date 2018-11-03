@@ -5,13 +5,18 @@
  */
 package rmiclient;
 
+import com.mysql.jdbc.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lurreaf
  */
 public class Usuario {
-    
-     private int id;
+
+    private int id;
     private String nombre;
     private String apellido;
     private String usuario;
@@ -19,7 +24,8 @@ public class Usuario {
     private String telefono;
     private String email;
     private String cedula;
-
+    private int sucursal;
+    private Connection conectar;
     public Usuario() {
     }
 
@@ -32,6 +38,25 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.cedula = cedula;
+    }
+
+    public Usuario(String nombre, String apellido, String usuario, String pass, String telefono, String email, String cedula, int sucursal) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
+        this.pass = pass;
+        this.telefono = telefono;
+        this.email = email;
+        this.cedula = cedula;
+        this.sucursal = sucursal;
+    }
+
+    public int getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(int sucursal) {
+        this.sucursal = sucursal;
     }
 
     public int getId() {
@@ -98,6 +123,26 @@ public class Usuario {
         this.cedula = cedula;
     }
     
-    
-    
+    public boolean insertUsuario( ) {
+        try {
+            String Query = "INSERT INTO " + "Usuario" + " (cedula,nombre,apellido,usuario,Pass,telefono,email,id_sucursal)VALUES("
+                    + "\"" + cedula + "\", "
+                    + "\"" + nombre + "\", "
+                    + "\"" + apellido + "\", "
+                    + "\"" + usuario + "\", "
+                    + "\"" + pass + "\", "
+                    + "\"" + telefono + "\", "
+                    + "\"" + email + "\", "
+                    + "\"" + sucursal + "\")";
+            System.out.println(Query);
+            Statement st = conectar.createStatement();
+            st.executeUpdate(Query);
+            JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
+             return false;
+        }
+    }
+
 }
